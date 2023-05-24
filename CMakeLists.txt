@@ -4,7 +4,7 @@ project(cilantro)
 set(CMAKE_BUILD_TYPE "Release")
 
 # Find dependencies
-find_package(Eigen3 REQUIRED NO_MODULE)
+# find_package(Eigen3 REQUIRED NO_MODULE)
 find_package(OpenMP)
 find_package(Pangolin QUIET)
 
@@ -47,7 +47,8 @@ target_include_directories(
   $<BUILD_INTERFACE:${CMAKE_CURRENT_BINARY_DIR}/include>
   $<INSTALL_INTERFACE:include>
 )
-target_link_libraries(${PROJECT_NAME} PUBLIC Eigen3::Eigen)
+#target_link_libraries(${PROJECT_NAME} PUBLIC Eigen3::Eigen)
+
 if(OpenMP_CXX_FOUND)
   target_link_libraries(${PROJECT_NAME} PUBLIC OpenMP::OpenMP_CXX)
   set(DEPENDS_OpenMP "find_dependency(OpenMP)")
@@ -59,7 +60,7 @@ if(Pangolin_FOUND)
 endif()
 target_compile_features(${PROJECT_NAME} PUBLIC cxx_std_17)
 if(ENABLE_NATIVE_BUILD_OPTIMIZATIONS)
-  target_compile_options(${PROJECT_NAME} PUBLIC -O3 -march=native -mtune=native)
+  target_compile_options(${PROJECT_NAME} PUBLIC -O3)
 else()
   target_compile_options(${PROJECT_NAME} PUBLIC -O3)
 endif()
